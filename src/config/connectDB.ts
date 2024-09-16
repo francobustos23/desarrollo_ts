@@ -6,5 +6,7 @@ export const connectDB = async () => {
         .then(() => {
             console.log('Conexion a la base de datos exitosa 🟢');
         })
-        .catch(err => err);
+        .catch((error:any) => {
+            throw new Error(error);
+        });
 }

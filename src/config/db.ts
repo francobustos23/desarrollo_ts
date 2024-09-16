@@ -15,4 +15,17 @@ const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     dialect: DB_DIALECT
 });
 
+export const syncDB = async () => {
+    await db.drop().then(() => {
+        console.log('database drop');
+    }).catch((error) => {
+        console.error('error drop database:', error);
+    });
+    await db.sync({force: false}).then(() => {
+        console.log('database sync');
+    }).catch((error) => {
+        console.error('error sync database:', error);
+    });
+}
+
 export default db;
