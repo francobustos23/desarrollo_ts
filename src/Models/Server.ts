@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import express, { Application } from 'express';
 import { envs } from '../environments/environments';
 import { connectDB } from '../config/connectDB';
+import router from '../routes/routes';
+import { syncDB } from '../config/db';
 
 export class mServer {
     private app: Application;
@@ -15,6 +17,7 @@ export class mServer {
 
         this.connectDB();
         this.middleweares();
+        this.routes();
 
     }
 
@@ -25,7 +28,12 @@ export class mServer {
         this.app.use(express.json())
     }
 
+    private routes(): void {
+        this.app.use('/api', router);
+    }
+
     private async connectDB(): Promise<void> {
+        await syncDB();
         await connectDB();
     }
 
