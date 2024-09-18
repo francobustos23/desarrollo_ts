@@ -1,60 +1,60 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import db from "../config/db";
+import { Table, Column, Model, DataType, PrimaryKey, Default, HasMany } from 'sequelize-typescript';
+import {v4 as uuidv4} from 'uuid';
+import Equipment from './Equipment';
 
-type UserAttributes = {
-    id?: number;
-    name: string;
-    email: string;
-    password: string;
-    state?: boolean;
+interface ValidRoles {
+    ADMIN: 'admin';
+    SUPERVISOR: 'supervisor';
 }
 
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
-
-class User extends Model<UserAttributes, UserCreationAttributes> {
-    public id!: number;
-    public name!: string;
-    public email!: string;
-    public password!: string;
-    public state!: boolean;
-
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
-
-User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    name: {
-        type: DataTypes.STRING,
+@Table({
+    timestamps: false,
+    tableName: 'users'
+})
+class User extends Model {
+    @Default(uuidv4)
+    @PrimaryKey
+    @Column({
+        type: DataType.UUID,
         allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    })
+    User_id!: string;
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    name!: string;
+    @Column({
+        type: DataType.STRING,
         unique: true,
-        validate: {
-            isEmail: true
-        }
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            len: [6, 100]
-        }
-    },
-    state: {
-        type: DataTypes.BOOLEAN,
+        allowNull: false
+    })
+    email!: string;
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    password!: string;
+    @Column({
+        type: DataType.ENUM('ADMIN', 'USER'),
+        allowNull: false
+    })
+    role!: ValidRoles;
+    @Column({
+        type: DataType.BOOLEAN,
         defaultValue: true
-    }
-},{
-    tableName: 'users',
-    timestamps: true,
-    sequelize: db
-});
+    })
+    state!: boolean;
+    @Column({
+        type: DataType.DATE,
+        defaultValue: DataType.NOW
+    })
+    createdAt!: Date;
+    @Column({
+        type: DataType.DATE,
+        defaultValue: DataType.NOW
+    })
+    updatedAt!: Date;
+}
 
 export default User;

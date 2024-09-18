@@ -1,13 +1,11 @@
-import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo, PrimaryKey, Default } from "sequelize-typescript";
-import {User, Category} from "./index"
-import {v4 as uuidv4} from "uuid";
-
+import { Table, Column, Model, DataType, PrimaryKey, Default } from "sequelize-typescript";
+import { v4 as uuidv4 } from "uuid";
 @Table({
     timestamps: false,
-    tableName: "equipments",
+    tableName: "categories",
 })
 
-class Equipment extends Model {
+class Category extends Model {
     @Default(uuidv4)
     @PrimaryKey
     @Column({
@@ -20,6 +18,11 @@ class Equipment extends Model {
         allowNull: false,
     })
     name!: string;
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    description!: string;
     @Column({
         type: DataType.STRING,
         defaultValue: true,
@@ -37,4 +40,4 @@ class Equipment extends Model {
     updatedAt!: Date;
 }
 
-export default Equipment;
+export default Category;

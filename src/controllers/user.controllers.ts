@@ -50,7 +50,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
         if (!user) {
            return res.status(404).json({ message: 'User not found' });
         }
-        await UserService.updateUser(parseInt(id), body);
+        await UserService.updateUser(id, body);
         res.status(200).json(user);
     } catch (error:any) {
         console.log('error creating user: ', error);
@@ -65,7 +65,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
         if (!user) {
            return res.status(404).json({ message: 'User not found' });
         }
-        await UserService.deleteUser(parseInt(id));
+        await UserService.deleteUser(id);
         res.status(200).json({ message: 'User deleted' });
     } catch (error:any) {
         console.log('error deleting user: ', error);

@@ -2,10 +2,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import express, { Application } from 'express';
-import { envs } from '../environments/environments';
-import { connectDB } from '../config/connectDB';
-import router from '../routes/routes';
-import { syncDB } from '../config/db';
+import { envs } from './environments/environments';
+import { connectDB } from './config/connectDB';
+import router from './routes/routes';
+import { syncDB } from './config/connectDB';
 
 export class mServer {
     private app: Application;

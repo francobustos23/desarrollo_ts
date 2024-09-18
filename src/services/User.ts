@@ -19,14 +19,14 @@ class UserService {
     }
 
     async createUser(params: IUser) {
-        return await User.create({name: params.name, email: params.email, password: params.password});
+        return await User.create({params});
     }
 
-    async updateUser(id: number, params: IUser) {
+    async updateUser(id: string, params: IUser) {
         return await User.update(params, { where: { id } });
     }
 
-    async deleteUser(id: number) {
+    async deleteUser(id: string) {
         return await User.update({ state: false }, { where: { id } });
     }
 

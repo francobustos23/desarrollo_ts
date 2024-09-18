@@ -1,5 +1,6 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 import { envs } from "../environments/environments";
+import { User, Equipment, Category } from '../Models/index'
 
 const {
     DB_DIALECT,
@@ -10,22 +11,18 @@ const {
     DB_USER
 } = envs;
 
-const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+const db = new Sequelize({
+    database: DB_NAME,
+    dialect: DB_DIALECT,
     host: DB_HOST,
-    dialect: DB_DIALECT
+    port: DB_PORT,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    models: [
+        User,
+        Equipment,
+        Category
+    ]
 });
-
-export const syncDB = async () => {
-    await db.drop().then(() => {
-        console.log('database drop');
-    }).catch((error) => {
-        console.error('error drop database:', error);
-    });
-    await db.sync({force: false}).then(() => {
-        console.log('database sync');
-    }).catch((error) => {
-        console.error('error sync database:', error);
-    });
-}
 
 export default db;
