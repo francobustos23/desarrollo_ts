@@ -1,5 +1,6 @@
 import db from "./db";
 
+// const TableNames = ['users', 'movements', 'equipments', 'categories'];
 export const connectDB = async () => {
 
     db.authenticate()
@@ -9,17 +10,19 @@ export const connectDB = async () => {
         .catch((error: any) => {
             throw new Error(error);
         });
-}
 
-export const syncDB = async () => {
-    await db.drop().then(() => {
-        console.log('database drop');
-    }).catch((error) => {
-        console.error('error drop database:', error);
-    });
-    await db.sync({ force: false }).then(() => {
-        ('database sync');
-    }).catch((error) => {
-        console.error('error sync database:', error);
+    // for( const tNames of TableNames){
+    //     try {
+    //         await db.query(`DROP TABLE IF EXISTS ${tNames}`);
+    //         console.log(`Tabla ${tNames} eliminada`);
+    //     } catch (error) {
+    //         console.log(`Error al eliminar tabla ${tNames}: `, error);
+    //     }
+    // }
+
+    await db.sync({ force: true }).then(() => {
+        console.log('Tablas sincronizadas');
+    }).catch((error: any) => {
+        console.log('Error al sincronizar tablas: ', error);
     });
 }
