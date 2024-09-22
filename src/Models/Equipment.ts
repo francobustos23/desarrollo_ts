@@ -25,6 +25,11 @@ class Equipment extends Model {
         defaultValue: true,
     })
     state!: string;
+    @ForeignKey(() => Category)
+    categoryId!: string;
+
+    @BelongsTo(() => Category)
+    category!: Category;
     @Column({
         type: DataType.DATE,
         defaultValue: DataType.NOW,
@@ -35,6 +40,8 @@ class Equipment extends Model {
         defaultValue: DataType.NOW,
     })
     updatedAt!: Date;
+
+
 }
 
 export default Equipment;

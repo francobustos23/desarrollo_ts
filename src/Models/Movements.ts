@@ -1,24 +1,42 @@
-import { Table, Column, Model, DataType, PrimaryKey, Default, ForeignKey, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, Default, PrimaryKey } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 import Equipment from "./Equipment";
+import User from "./User";
+
+interface ValidTypes {
+    ENTRADA: 'ENTRADA';
+    SALIDA: 'SALIDA';
+}
+
 @Table({
     timestamps: false,
-    tableName: "categories",
+    tableName: "movements",
 })
 
-class Category extends Model {
+
+class Movement extends Model {
     @Default(uuidv4)
     @PrimaryKey
     @Column({
         type: DataType.UUID,
-        allowNull: false
+        allowNull: false,
     })
     id!: string;
     @Column({
-        type: DataType.STRING,
+        type: DataType.ENUM('ENTRADA', 'SALIDA'),
         allowNull: false,
     })
-    name!: string;
+    type!: ValidTypes;
+    
+    @ForeignKey(() => User)
+    userId!: string;
+    @BelongsTo(() => User)
+    user!: User;
+
+    @ForeignKey(() => Equipment)
+    equipmentId!: string;
+    @BelongsTo(() => Equipment)
+    equipment!: Equipment;
     @Column({
         type: DataType.STRING,
         allowNull: false,
@@ -39,8 +57,6 @@ class Category extends Model {
         defaultValue: DataType.NOW,
     })
     updatedAt!: Date;
-    @HasMany(() => Equipment)
-    equipments!: Equipment[];
 }
 
-export default Category;
+export default Movement;

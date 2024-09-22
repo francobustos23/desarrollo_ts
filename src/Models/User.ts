@@ -1,6 +1,5 @@
 import { Table, Column, Model, DataType, PrimaryKey, Default, HasMany } from 'sequelize-typescript';
 import {v4 as uuidv4} from 'uuid';
-import Equipment from './Equipment';
 
 interface ValidRoles {
     ADMIN: 'admin';
@@ -18,7 +17,7 @@ class User extends Model {
         type: DataType.UUID,
         allowNull: false
     })
-    User_id!: string;
+    id!: string;
     @Column({
         type: DataType.STRING,
         allowNull: false
