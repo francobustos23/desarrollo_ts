@@ -14,7 +14,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const user = await UserService.findOneUser(parseInt(id));
+        const user = await UserService.findOneUser(id);
         if (!user) {
             res.status(404).json({ message: 'User not found' });
         }
@@ -46,7 +46,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
     const {body} = req;
     try {
-        const user = await UserService.findOneUser(parseInt(id));
+        const user = await UserService.findOneUser(id);
         if (!user) {
            return res.status(404).json({ message: 'User not found' });
         }
@@ -61,7 +61,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
 
     try {
-        const user = await UserService.findOneUser(parseInt(id));
+        const user = await UserService.findOneUser(id);
         if (!user) {
            return res.status(404).json({ message: 'User not found' });
         }
