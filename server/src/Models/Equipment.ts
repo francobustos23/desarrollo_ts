@@ -1,6 +1,6 @@
-import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo, PrimaryKey, Default } from "sequelize-typescript";
-import {User, Category} from "./index"
-import {v4 as uuidv4} from "uuid";
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, Default } from "sequelize-typescript";
+import { Category } from "./index"
+import { v4 as uuidv4 } from "uuid";
 
 @Table({
     timestamps: false,
@@ -21,15 +21,20 @@ class Equipment extends Model {
     })
     name!: string;
     @Column({
-        type: DataType.STRING,
-        defaultValue: true,
+        type: DataType.INTEGER,
+        allowNull: false,
     })
-    state!: string;
+    stock!: number;
     @ForeignKey(() => Category)
     categoryId!: string;
 
     @BelongsTo(() => Category)
     category!: Category;
+    @Column({
+        type: DataType.BOOLEAN,
+        defaultValue: true,
+    })
+    state!: boolean;
     @Column({
         type: DataType.DATE,
         defaultValue: DataType.NOW,
