@@ -1,0 +1,18 @@
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(71, 71, 71);
+}
+
+.content {
+    flex: 1;
+}
+
