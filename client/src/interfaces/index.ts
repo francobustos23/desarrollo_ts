@@ -10,5 +10,11 @@ export interface DataItem {
     name: string;
     stock: number;
     categoryId: string;
-  }
+    state: boolean;
+}
+
+export interface DataCategory {
+    id: string; 
+    name: string;
+}
   
