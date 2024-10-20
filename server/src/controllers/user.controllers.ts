@@ -53,7 +53,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
         await UserService.updateUser(id, body);
         res.status(200).json(user);
     } catch (error:any) {
-        console.log('error creating user: ', error);
+        console.log('error update user: ', error);
     }
 }
 
