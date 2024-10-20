@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { envs } from "../environments/environments";
-import { User, Equipment, Category, Movement } from '../Models/index'
+import { User, Equipment, Category} from '../Models/index'
 
 const {
     DB_DIALECT,
@@ -22,7 +22,6 @@ const db = new Sequelize({
         User,
         Equipment,
         Category,
-        Movement
     ]
 });
 
